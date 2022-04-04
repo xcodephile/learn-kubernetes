@@ -1,0 +1,29 @@
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: {{ include "frontend-example-1.fullname" . }}
+#   labels:
+#     {{- include "frontend-example-1.labels" . | nindent 4 }}
+# spec:
+#   type: {{ .Values.service.type }}
+#   ports:
+#     - port: {{ .Values.service.port }}
+#       targetPort: http
+#       protocol: TCP
+#       name: http
+#   selector:
+#     {{- include "frontend-example-1.selectorLabels" . | nindent 4 }}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{.Values.application.name}}
+  labels:
+    run: frontend-example-1
+spec:
+  ports:
+  - port: 3080
+    protocol: TCP
+  selector:
+    app: frontend-example-1
+  type: NodePort
